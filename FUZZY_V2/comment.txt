@@ -1,0 +1,1 @@
+algorithm operational but with poor results in extreme angles - both small and large

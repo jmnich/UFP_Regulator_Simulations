@@ -1,0 +1,2 @@
+algorithm is responsible for generating heat map of the rulebase with respect to
+every rule's usage frequency

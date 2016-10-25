@@ -1,0 +1,4 @@
+not operational
+some bugs are probably still present
+testing is extremely hard due to extensive computing power required to launch
+this version of algorithm
