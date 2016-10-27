@@ -13,15 +13,15 @@ class FuzzyRegulator:
         
         # prepare membership functions for input parameters
         self.angle_err = {}
-        self.angle_err[4] = MembershipFunction.MembershipFunction(False, True, 1.0/15.0, 60.0)
-        self.angle_err[3] = MembershipFunction.MembershipFunction(False, False, 1.0/15.0, 45.0)
-        self.angle_err[2] = MembershipFunction.MembershipFunction(False, False, 1.0/15.0, 25.0)
+        self.angle_err[4] = MembershipFunction.MembershipFunction(False, True, 1.0/20.0, 60.0)
+        self.angle_err[3] = MembershipFunction.MembershipFunction(False, False, 1.0/15.0, 40.0)
+        self.angle_err[2] = MembershipFunction.MembershipFunction(False, False, 1.0/15.0, 20.0)
         self.angle_err[1] = MembershipFunction.MembershipFunction(False, False, 1.0/10.0, 10.0)
-        self.angle_err[0] = MembershipFunction.MembershipFunction(False, False, 1.0/10.0, 0.0)
+        self.angle_err[0] = MembershipFunction.MembershipFunction(False, False, 1.0/3.0, 0.0)
         self.angle_err[-1] = MembershipFunction.MembershipFunction(False, False, 1.0/10.0, -10.0)
-        self.angle_err[-2] = MembershipFunction.MembershipFunction(False, False, 1.0/15.0, -25.0)
-        self.angle_err[-3] = MembershipFunction.MembershipFunction(False, False, 1.0/15.0, -45.0)
-        self.angle_err[-4] = MembershipFunction.MembershipFunction(True, False, 1.0/15.0, -60.0)
+        self.angle_err[-2] = MembershipFunction.MembershipFunction(False, False, 1.0/15.0, -20.0)
+        self.angle_err[-3] = MembershipFunction.MembershipFunction(False, False, 1.0/15.0, -40.0)
+        self.angle_err[-4] = MembershipFunction.MembershipFunction(True, False, 1.0/20.0, -60.0)
         
         self.ang_vel = {}
         self.ang_vel[4] = MembershipFunction.MembershipFunction(False, True, 1.0/7.5, 30.0)
@@ -93,13 +93,13 @@ class FuzzyRegulator:
     '''
         
     def calcNewThrusts(self, angle, ang_vel, desired_angle):
-        self.lastErr = desired_angle - angle        
+        self.lastErr =angle - desired_angle
         
         # fuzzyfication of the input
         fuzzy_angle = []
         
         for fuzzy_state in self.angle_err:
-            pertinence = self.angle_err[fuzzy_state].getMembershipFactor(angle)
+            pertinence = self.angle_err[fuzzy_state].getMembershipFactor(self.lastErr)
             if pertinence > 0.0:    # is a memeber
                 fuzzy_angle.append(FuzzyInput(fuzzy_state, pertinence))
                 

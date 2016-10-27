@@ -23,6 +23,7 @@ structure_mass = 1.0
 arm_length = 0.25
 arm_radius = 0.01
 interval = 0.01
+desired_angle = 0
 p = 0.5
 i = 0.01
 d = 0.3
@@ -41,11 +42,16 @@ arm.setInitialConditions(45.0, 0.0)
 fit_factor = 0.0
 
 for i in range(0, 1000):
-    regulator.calcNewThrusts(arm.angle, 0.0, interval)
+    regulator.calcNewThrusts(arm.angle, desired_angle, interval)
     arm.updateState(interval, 
                     regulator.getLeftThrust(), regulator.getRightThrust())
     record.append(arm.angle)
     fit_factor += abs(regulator.getLastErr()) * interval
+    # if i == 300:
+    #     desired_angle = 10
+    #
+    # if i == 600:
+    #     desired_angle = -15
         
 
         
